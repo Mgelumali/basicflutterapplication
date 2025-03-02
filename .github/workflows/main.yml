@@ -41,7 +41,7 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.19.6"  # Ensure Flutter is installed for this job too
+          flutter-version: "3.27.4"  # Ensure Flutter is installed for this job too
 
       - name: Verify Dart version
         run: dart --version  # Ensure Dart 3.6.1 is installed
