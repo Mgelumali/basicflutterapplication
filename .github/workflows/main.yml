@@ -43,6 +43,12 @@ jobs:
         with:
           flutter-version: "3.27.4"  # Ensure Flutter is installed for this job too
 
+      - name: Set up Java 17  # 🚀 Fix for Java version issue
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
       - name: Verify Dart version
         run: dart --version  # Ensure Dart 3.6.1 is installed
 
