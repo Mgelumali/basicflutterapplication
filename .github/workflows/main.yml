@@ -56,4 +56,4 @@ jobs:
         run: |
           flutter build appbundle --release
           echo "Removing signing files for extra security"
-          rm android/key.*
+          
