@@ -7,12 +7,11 @@ on:
   pull_request:
     branches:
       - main
-  workflow_dispatch: # Allows manual trigger of the workflow
+  workflow_dispatch:
 
 jobs:
   code-analysis-and-testing:
-    if: false
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -20,18 +19,17 @@ jobs:
       - name: Setup Flutter version
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: ${{ secrets.FLUTTER_VERSION }} # Installs the Flutter version from secrets
+          flutter-version: ${{ secrets.FLUTTER_VERSION }}
 
-      - name: Get pub dependencies # Installs Flutter dependencies
+      - name: Get pub dependencies
         run: flutter pub get
 
-      - name: Flutter analyze # Analyzes Dart code for issues
+      - name: Flutter analyze
         run: flutter analyze
 
   android:
-    if: false
     name: Android CI/CD
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -39,6 +37,5 @@ jobs:
       - name: Build AAB
         run: |
           flutter build appbundle --release
-
           echo "Removing signing files for extra security"
           rm android/key.*
