@@ -29,6 +29,7 @@ jobs:
 
   android:
     name: Android CI/CD
+    needs: code-analysis-and-testing  # 👈 Ensures android starts after code-analysis-and-testing
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout repository
