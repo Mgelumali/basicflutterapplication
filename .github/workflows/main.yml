@@ -1,43 +1,44 @@
 name: Flutter CI + CD
-  on:
-    push:
-     branch:[main]
-     pull_request:
-      branch:[main]
-  workflow_dispatch: # to manually run this workflow
-  jobs:
-  if: false
-   runs-on: ubuntu-latest 
-   steps:
-   -name:checkout repository
-    uses: actions/checkout@2
-    
-   - name: setup flutter version
-     uses: subosito/flutter-action@v2
-     with:
-      flutter-version: ${{secrets.FLUTTER_VERSION}}  # this will install the flutter version 
-   
-  - name: Get pub dependencies   #Install the dependices of the flutter code
-      run: flutter pub get
-  - name: Flutter analyze    # nalyzes the Dart code in your Flutter project to detect issues like syntax errors, warnings, and potential problems.
-      run: flutter analyze
- 
- android:
-   if : false
-   name: android CI/CD
-   runs-on: ubuntu-latest
-   steps:
-     - name: checout repository
-        runs : action/checout@v2
-    - name: Build AAB
-      run: |
-        flutter build appbundle --release
 
-        echo "Removing signing files for extra security"
-        rm android/key.*
-   
-   
-       
-       
-      
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch: # Allows manual trigger of the workflow
 
+jobs:
+  code-analysis-and-testing:
+    if: false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Flutter version
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ secrets.FLUTTER_VERSION }} # Installs the Flutter version from secrets
+
+      - name: Get pub dependencies # Installs Flutter dependencies
+        run: flutter pub get
+
+      - name: Flutter analyze # Analyzes Dart code for issues
+        run: flutter analyze
+
+  android:
+    if: false
+    name: Android CI/CD
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Build AAB
+        run: |
+          flutter build appbundle --release
+
+          echo "Removing signing files for extra security"
+          rm android/key.*
