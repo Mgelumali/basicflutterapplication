@@ -14,12 +14,15 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - name: Setup Flutter version
+      - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: ${{ secrets.FLUTTER_VERSION }}
+          flutter-version: "3.3.10"  # Set the desired Flutter version
+
+      - name: Verify Flutter installation
+        run: flutter doctor  # Checks if Flutter is installed correctly
 
       - name: Get pub dependencies
         run: flutter pub get
@@ -29,11 +32,19 @@ jobs:
 
   android:
     name: Android CI/CD
-    needs: code-analysis-and-testing  # 👈 Ensures android starts after code-analysis-and-testing
+    needs: code-analysis-and-testing
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.3.10"  # Ensure Flutter is installed for this job too
+
+      - name: Verify Flutter installation
+        run: flutter doctor  # Checks if Flutter is installed correctly
 
       - name: Build AAB
         run: |
